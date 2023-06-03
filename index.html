@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>budget application</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h2>Budgetting Application</h2>
+    <div class="maindiv">
+       
+    <div class="total-cont">
+    <h3>Total Budget</h3>
+    <h5 id="total-budget-value">$000</h5>
+    <input type="number" placeholder="Enter your total amount" id="budget-amount">
+    <br>
+    <button type="button" onclick="budval()">Set Budget Amount</button>
+    </div>
+    <div class="expense-con">
+        <h3>Add expences </h3>
+        <h4>Enter Your Expense Amount</h4>
+        <input type="number" id="exp-amount" placeholder="enter amount">
+        <h4>Description</h4>
+        <input type="text" id="exp-discrip" placeholder="Description">
+        <h4>set Date</h4>
+        <input type="date" id="exp-date" placeholder="Enter date">
+        <h4>Category</h4>
+        <select name="Category" id="exp-categ" class="dropdown">
+            <option value="rent">Rent</option>
+            <option value="grocery">Grocery</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="clothes">Clothes</option>
+            <option value="bills">Bills</option>
+        </select>
+        <button type="button" id="exp-sub-but"
+        onclick="expval">submit</button>
+        <div class="show-detail">
+            <div>
+                <h4>Total budget </h4>
+                <p id="total-bugetc">??</p>
+            </div>
+            <div>
+                <h4>Expences</h4>
+                <p id="total-exp">??</p>
+            </div>
+            <div>
+                <h4>Balance</h4>
+                <p id="total-balance">??</p>
+            </div>
+        </div>
+        
+    </div>
+   
+    </div>
+    <div class="detail-con">
+        <h2>Detail Description of Expences</h2>
+    
+        <table class="tbox">
+            <tr>
+             <th>Category</th>
+             <th>Amount</th>
+             <th>Date</th>
+             <th>Description</th>
+            </tr>
+            <!-- <tr>
+                <td> </td>
+                <td> </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td> </td>
+            </tr> -->
+        </table>
+    </div>
+   
+</body>
+</html>
