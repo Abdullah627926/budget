@@ -39,12 +39,16 @@ function addExpense() {
   var categoryCell = newRow.insertCell(0);
   var amountCell = newRow.insertCell(1);
   var dateCell = newRow.insertCell(2);
-  // var expenseDescription =newRow.insertcell(3);
+  var descriptionCell = newRow.insertCell(3);
+  var deletebtnCell = newRow.insertCell(4);
+  // var deletbtn = document.createElement("button" )
+  // var deletebtn = newRow.insertCell(4)
   // Set the values of the cells
   categoryCell.textContent = expenseCategory.value;
   amountCell.textContent = expenseAmount.value;
   dateCell.textContent = expenseDate.value;
-  // expenseDescription.textContent = expenseDescription.value; 
+  descriptionCell.textContent = expenseDescription.value; 
+  
   // Clear the input fields
   expenseAmount.value = "";
   expenseDescription.value = "";
