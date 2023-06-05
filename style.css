@@ -144,3 +144,10 @@ h5{
     padding: 21px 99px 24px 91px
 }
 
+#exp-edit-but {
+    display: none;
+
+}
+#exp-cancel-but {
+    display: none;
+}

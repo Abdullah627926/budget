@@ -1,16 +1,17 @@
-function budval(){
-    var totalBudgetc=document.getElementById("total-bugetc");
-    var totalBudgetAmount=document.getElementById("total-budget-value");
-    let inputAmount=document.getElementById("budget-amount");
-    if(inputAmount.value===""){
-        alert("you must write something");
-    }
-    else{
-        totalBudgetAmount.innerText=inputAmount.value;
-        totalBudgetc.innerText=inputAmount.value;
+let editRowIndex = null;
+function budval() {
+  var totalBudgetc = document.getElementById("total-bugetc");
+  var totalBudgetAmount = document.getElementById("total-budget-value");
+  let inputAmount = document.getElementById("budget-amount");
+  if (inputAmount.value === "") {
+    alert("you must write something");
+  }
+  else {
+    totalBudgetAmount.innerText = inputAmount.value;
+    totalBudgetc.innerText = inputAmount.value;
 
-        inputAmount.value="";
-    }
+    inputAmount.value = "";
+  }
 }
 // first function for total amount 
 function setBudgetAmount() {
@@ -40,15 +41,52 @@ function addExpense() {
   var amountCell = newRow.insertCell(1);
   var dateCell = newRow.insertCell(2);
   var descriptionCell = newRow.insertCell(3);
-  var deletebtnCell = newRow.insertCell(4);
-  // var deletbtn = document.createElement("button" )
-  // var deletebtn = newRow.insertCell(4)
-  // Set the values of the cells
+  var actionCell = newRow.insertCell(4)
+
+  // Create an edit button
+  var editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.style.color = "green";
+  editBtn.style.backgroundColor = "white";
+  editBtn.style.padding = "2px 20px 3px 27px";
+  editBtn.style.fontWeight = "900";
+  editBtn.style.borderStyle = "dashed";
+  editBtn.addEventListener("click", function () {
+    // Get the corresponding row index
+    var rowIndex = this.parentNode.parentNode.rowIndex;
+    expenseAmount.value = table.rows[rowIndex].cells[1].textContent;
+    expenseDescription.value = table.rows[rowIndex].cells[3].textContent;
+    expenseDate.value = table.rows[rowIndex].cells[2].textContent;
+    expenseCategory.value = table.rows[rowIndex].cells[0].textContent;
+    document.getElementById("exp-sub-but").style.display = "none";
+    document.getElementById("exp-edit-but").style.display = "inline-block";
+    document.getElementById("exp-cancel-but").style.display = "inline-block";
+
+    editRowIndex = rowIndex;
+  });
+
+  // Create a delete button
+  var deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.style.color = "red";
+  deleteBtn.style.backgroundColor = "white";
+  deleteBtn.style.padding = "2px 20px 3px 27px";
+  deleteBtn.style.fontWeight = "900";
+  deleteBtn.style.borderStyle = "dashed";
+  deleteBtn.addEventListener("click", function () {
+    // Remove the corresponding row when the delete button is clicked
+    table.deleteRow(this.parentNode.parentNode.rowIndex);
+  });
+
+  // Add the edit and delete buttons to the action cell
+  actionCell.appendChild(editBtn);
+  actionCell.appendChild(deleteBtn);
+
   categoryCell.textContent = expenseCategory.value;
   amountCell.textContent = expenseAmount.value;
   dateCell.textContent = expenseDate.value;
-  descriptionCell.textContent = expenseDescription.value; 
-  
+  descriptionCell.textContent = expenseDescription.value;
+
   // Clear the input fields
   expenseAmount.value = "";
   expenseDescription.value = "";
@@ -89,6 +127,49 @@ document.getElementById("exp-sub-but").addEventListener("click", addExpense);
 // Event listener for updating the budget details
 document.getElementById("exp-sub-but").addEventListener("click", updateBudgetDetails);
 
+document.getElementById("exp-edit-but").addEventListener("click", function () {
+  if (editRowIndex) {
+    var table = document.querySelector(".tbox");
+    var rows = table.getElementsByTagName("tr");
+    var amountCell = rows[editRowIndex].getElementsByTagName("td")[1];
+    var descriptionCell = rows[editRowIndex].getElementsByTagName("td")[3];
+    var dateCell = rows[editRowIndex].getElementsByTagName("td")[2];
+    var categoryCell = rows[editRowIndex].getElementsByTagName("td")[0];
+
+    const expenseAmount = document.getElementById("exp-amount");
+    const expenseDescription = document.getElementById("exp-discrip");
+    const expenseDate = document.getElementById("exp-date");
+    const expenseCategory = document.getElementById("exp-categ");
+
+    amountCell.textContent = expenseAmount.value;
+    descriptionCell.textContent = expenseDescription.value;
+    dateCell.textContent = expenseDate.value;
+    categoryCell.textContent = expenseCategory.value;
+
+    document.getElementById("exp-sub-but").style.display = "inline-block";
+    document.getElementById("exp-edit-but").style.display = "none";
+    document.getElementById("exp-cancel-but").style.display = "none";
+    expenseAmount.value = "";
+    expenseDescription.value = "";
+    expenseDate.value = "";
+    expenseCategory.value = "rent";
+    editRowIndex = null;
+  }
+});
 
 
-
+document.getElementById("exp-cancel-but").addEventListener("click", function () {
+  document.getElementById("exp-sub-but").style.display = "inline-block";
+  document.getElementById("exp-edit-but").style.display = "none";
+  document.getElementById("exp-cancel-but").style.display = "none";
+  const expenseAmount = document.getElementById("exp-amount");
+  const expenseDescription = document.getElementById("exp-discrip");
+  const expenseDate = document.getElementById("exp-date");
+  const expenseCategory = document.getElementById("exp-categ");
+  expenseAmount.value = "";
+  expenseDescription.value = "";
+  expenseDate.value = "";
+  expenseCategory.value = "rent";
+  editRowIndex = null;
+}
+);
